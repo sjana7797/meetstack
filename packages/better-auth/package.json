@@ -1,0 +1,14 @@
+{
+  "name": "@repo/auth",
+  "exports": {
+    "./*": "./src/*.ts"
+  },
+  "dependencies": {
+    "@better-auth/api-key": "^1.6.29",
+    "@repo/db": "workspace:*",
+    "better-auth": "^1.6.29"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0"
+  }
+}

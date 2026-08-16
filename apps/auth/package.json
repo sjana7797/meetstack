@@ -1,0 +1,14 @@
+{
+  "name": "auth",
+  "scripts": {
+    "dev": "bun run --hot src/index.ts"
+  },
+  "dependencies": {
+    "better-auth": "^1.6.29",
+    "hono": "^4.13.2",
+    "@repo/auth": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  }
+}

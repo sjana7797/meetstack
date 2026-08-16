@@ -13,6 +13,7 @@ const databaseSchema = z.object({
 const authSchema = z.object({
   BETTER_AUTH_SECRET: z.string().min(32),
   BETTER_AUTH_URL: z.url(),
+  AUTH_SERVICE_PORT: z.coerce.number().int().positive().default(5002),
 });
 const redisSchema = z.object({
   REDIS_HOST: z.string().min(1).default("localhost"),

@@ -25,7 +25,9 @@
       "@/*": ["apps/gateway/src/*"],
       "@media/*": ["apps/media/src/*"],
       "@app/config": ["libs/config/src"],
-      "@app/config/*": ["libs/config/src/*"]
+      "@app/config/*": ["libs/config/src/*"],
+      "@app/auth-verify": ["libs/auth-verify/src"],
+      "@app/auth-verify/*": ["libs/auth-verify/src/*"]
     }
   }
 }

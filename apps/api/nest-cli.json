@@ -19,6 +19,15 @@
         "tsConfigPath": "libs/config/tsconfig.lib.json"
       }
     },
+    "auth-verify": {
+      "type": "library",
+      "root": "libs/auth-verify",
+      "entryFile": "index",
+      "sourceRoot": "libs/auth-verify/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/auth-verify/tsconfig.lib.json"
+      }
+    },
     "gateway": {
       "type": "application",
       "root": "apps/gateway",

@@ -3,6 +3,7 @@ import { ApiOperation, ApiTags } from "@nestjs/swagger";
 
 import { ResponseMessage } from "@/common/decorators";
 import { HEALTH_ROUTES } from "@/constants/routes";
+import { Public } from "@/modules/auth/decorators";
 
 import { HealthService } from "./health.service";
 
@@ -11,6 +12,7 @@ import { HealthService } from "./health.service";
 export class HealthController {
   constructor(private readonly healthService: HealthService) {}
 
+  @Public()
   @Get()
   @ResponseMessage("Health Status OK")
   @ApiOperation({

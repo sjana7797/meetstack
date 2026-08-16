@@ -1,3 +1,4 @@
+import { type IAuthTokenPayload, verifyAuthToken } from "@app/auth-verify";
 import { ConsumerService } from "@media/modules/mediasoup/consumer/consumer.service";
 import { ParticipantsService } from "@media/modules/mediasoup/participants/particcipants.service";
 import { ProducerService } from "@media/modules/mediasoup/producer/producer.service";
@@ -6,11 +7,13 @@ import { TransportService } from "@media/modules/mediasoup/transport/transport.s
 import {
   ConnectedSocket,
   MessageBody,
+  OnGatewayConnection,
   OnGatewayDisconnect,
   SubscribeMessage,
   WebSocketGateway,
   WsResponse,
 } from "@nestjs/websockets";
+import type { IncomingMessage } from "http";
 import type {
   DtlsParameters,
   MediaKind,
@@ -22,7 +25,6 @@ import type { WebSocket } from "ws";
 
 interface IJoinRoomData {
   roomId: string;
-  userId: string;
   requestId?: string;
 }
 
@@ -61,7 +63,9 @@ interface IResumeConsumerData {
 @WebSocketGateway({
   path: "/media",
 })
-export class SignalingGateway implements OnGatewayDisconnect {
+export class SignalingGateway
+  implements OnGatewayConnection, OnGatewayDisconnect
+{
   constructor(
     private readonly roomService: RoomsService,
     private readonly participantService: ParticipantsService,
@@ -70,6 +74,31 @@ export class SignalingGateway implements OnGatewayDisconnect {
     private readonly producerService: ProducerService,
     private readonly consumerService: ConsumerService,
   ) {}
+
+  private readonly authenticatedSockets = new Map<
+    WebSocket,
+    IAuthTokenPayload
+  >();
+
+  async handleConnection(client: WebSocket, request: IncomingMessage) {
+    const token = new URLSearchParams(
+      request.url?.split("?")[1] ?? "",
+    ).get("token");
+
+    if (!token) {
+      client.close(4001, "Unauthorized");
+
+      return;
+    }
+
+    try {
+      const payload = await verifyAuthToken(token);
+
+      this.authenticatedSockets.set(client, payload);
+    } catch {
+      client.close(4001, "Unauthorized");
+    }
+  }
 
   private send(socket: WebSocket, event: string, data: unknown) {
     if (socket.readyState !== 1) {
@@ -125,16 +154,22 @@ export class SignalingGateway implements OnGatewayDisconnect {
     @ConnectedSocket() socket: WebSocket,
     @MessageBody() data: IJoinRoomData,
   ): Promise<WsResponse<unknown>> {
-    const { roomId, userId, requestId } = data;
+    const { roomId, requestId } = data;
+    const identity = this.authenticatedSockets.get(socket);
 
-    if (!roomId || !userId) {
+    if (!identity) {
+      return this.reply("error", { message: "Unauthenticated" }, requestId);
+    }
+
+    if (!roomId) {
       return this.reply(
         "error",
-        { message: "roomId and userId are required" },
+        { message: "roomId is required" },
         requestId,
       );
     }
 
+    const userId = identity.id;
     const room = await this.roomService.getOrCreateRoom(roomId);
     const participant = this.participantService.createParticipant(
       userId,
@@ -491,6 +526,8 @@ export class SignalingGateway implements OnGatewayDisconnect {
   }
 
   private cleanupParticipant(socket: WebSocket) {
+    this.authenticatedSockets.delete(socket);
+
     const participant = this.participantService.getParticipantBySocket(socket);
 
     if (!participant) {

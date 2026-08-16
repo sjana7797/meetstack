@@ -15,11 +15,7 @@
     },
     "dev": {
       "cache": false,
-      "persistent": true,
-      "dependsOn": ["^studio"]
-    },
-    "studio": {
-      "cache": false
+      "persistent": true
     }
   }
 }

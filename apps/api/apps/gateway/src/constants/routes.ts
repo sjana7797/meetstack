@@ -10,3 +10,9 @@ export const SWAGGER_DOCS_ROUTE = "/api/docs";
 export const HEALTH_ROUTES = {
   BASE: "health",
 };
+
+// User routes
+export const USER_ROUTES = {
+  BASE: "user",
+  GET_ME: "me",
+} as const;

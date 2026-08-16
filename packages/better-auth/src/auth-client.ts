@@ -10,7 +10,10 @@ import {
 import { createAuthClient } from "better-auth/react";
 
 export const authClient = createAuthClient({
-  baseURL: process.env.BETTER_AUTH_URL!,
+  // NEXT_PUBLIC_ prefix required: this file runs in the browser (createAuthClient
+  // is a client-side API), and Next.js only inlines env vars with that prefix
+  // into the client bundle. Plain BETTER_AUTH_URL would be undefined here.
+  baseURL: process.env.NEXT_PUBLIC_BETTER_AUTH_URL,
   plugins: [
     usernameClient(),
     phoneNumberClient(),

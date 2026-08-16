@@ -10,6 +10,15 @@
   "monorepo": true,
   "root": "apps/gateway",
   "projects": {
+    "auth-verify": {
+      "type": "library",
+      "root": "libs/auth-verify",
+      "entryFile": "index",
+      "sourceRoot": "libs/auth-verify/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/auth-verify/tsconfig.lib.json"
+      }
+    },
     "config": {
       "type": "library",
       "root": "libs/config",
@@ -19,13 +28,13 @@
         "tsConfigPath": "libs/config/tsconfig.lib.json"
       }
     },
-    "auth-verify": {
+    "database": {
       "type": "library",
-      "root": "libs/auth-verify",
+      "root": "libs/database",
       "entryFile": "index",
-      "sourceRoot": "libs/auth-verify/src",
+      "sourceRoot": "libs/database/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/auth-verify/tsconfig.lib.json"
+        "tsConfigPath": "libs/database/tsconfig.lib.json"
       }
     },
     "gateway": {
@@ -44,6 +53,15 @@
       "sourceRoot": "apps/media/src",
       "compilerOptions": {
         "tsConfigPath": "apps/media/tsconfig.app.json"
+      }
+    },
+    "user": {
+      "type": "application",
+      "root": "apps/user",
+      "entryFile": "main",
+      "sourceRoot": "apps/user/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/user/tsconfig.app.json"
       }
     }
   }

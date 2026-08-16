@@ -21,13 +21,17 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
     "paths": {
       "@/*": ["apps/gateway/src/*"],
-      "@media/*": ["apps/media/src/*"],
+      "@app/auth-verify": ["libs/auth-verify/src"],
+      "@app/auth-verify/*": ["libs/auth-verify/src/*"],
       "@app/config": ["libs/config/src"],
       "@app/config/*": ["libs/config/src/*"],
-      "@app/auth-verify": ["libs/auth-verify/src"],
-      "@app/auth-verify/*": ["libs/auth-verify/src/*"]
+      "@app/database": ["libs/database/src"],
+      "@app/database/*": ["libs/database/src/*"],
+      "@media/*": ["apps/media/src/*"]
     }
   }
 }

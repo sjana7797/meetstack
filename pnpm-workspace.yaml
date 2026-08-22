@@ -1,6 +1,8 @@
 packages:
   - "apps/*"
   - "packages/*"
+  - "libs/*"
+  - "services/*"
 allowBuilds:
   "@scarf/scarf": true
   esbuild: true

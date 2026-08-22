@@ -7,9 +7,9 @@ type Message = {
 };
 
 export class MediaClient {
-  private socket: WebSocket | undefined;
+  private socket!: WebSocket;
 
-  private device: Device | undefined;
+  private device!: Device;
 
   private sendTransport: Transport | undefined;
   private receiveTransport: Transport | undefined;
@@ -34,15 +34,15 @@ export class MediaClient {
     this.socket = new WebSocket(url);
 
     await new Promise<void>((resolve, reject) => {
-      this.socket?.onopen = () => {
+      this.socket.onopen = () => {
         resolve();
       };
 
-      this.socket?.onerror = () => {
+      this.socket.onerror = () => {
         reject(new Error("WebSocket connection failed"));
       };
 
-      this.socket?.onmessage = (event) => {
+      this.socket.onmessage = (event) => {
         this.handleMessage(JSON.parse(event.data));
       };
     });

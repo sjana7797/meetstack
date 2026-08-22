@@ -21,6 +21,7 @@ import type {
   RtpParameters,
   WebRtcTransport,
 } from "mediasoup/types";
+import { v7 as uuidv7 } from "uuid";
 import type { WebSocket } from "ws";
 
 interface IJoinRoomData {
@@ -85,19 +86,28 @@ export class SignalingGateway
       "token",
     );
 
-    if (!token) {
-      client.close(4001, "Unauthorized");
+    if (token) {
+      try {
+        const payload = await verifyAuthToken(token);
 
-      return;
+        this.authenticatedSockets.set(client, payload);
+
+        return;
+      } catch {
+        client.close(4001, "Unauthorized");
+
+        return;
+      }
     }
 
-    try {
-      const payload = await verifyAuthToken(token);
-
-      this.authenticatedSockets.set(client, payload);
-    } catch {
-      client.close(4001, "Unauthorized");
-    }
+    // Sign-in isn't wired up on the client yet — allow anonymous guests
+    // for local testing instead of rejecting every connection.
+    this.authenticatedSockets.set(client, {
+      id: uuidv7(),
+      email: "",
+      emailVerified: false,
+      name: "Guest",
+    });
   }
 
   private send(socket: WebSocket, event: string, data: unknown) {

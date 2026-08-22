@@ -1,9 +1,12 @@
-import type { TEnv } from "@repo/config/env";
+import { Logger } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { NestFactory } from "@nestjs/core";
 import { WsAdapter } from "@nestjs/platform-ws";
+import type { TEnv } from "@repo/config/env";
 
 import { MediaModule } from "./app.module";
+
+const logger = new Logger("Bootstrap");
 
 async function bootstrap() {
   const app = await NestFactory.create(MediaModule);
@@ -13,9 +16,9 @@ async function bootstrap() {
 
   // Websocket setup
   app.useWebSocketAdapter(new WsAdapter(app));
-  console.log(PORT);
-  console.log("App started");
   await app.listen(PORT);
+
+  logger.log(`App started on port ${PORT}`);
 }
 
 void bootstrap();

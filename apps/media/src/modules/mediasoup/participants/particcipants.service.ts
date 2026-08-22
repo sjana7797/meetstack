@@ -1,7 +1,8 @@
-import { TParticipant } from "@/common/types";
 import { Injectable } from "@nestjs/common";
 import { v7 as uuidv7 } from "uuid";
 import { WebSocket } from "ws";
+
+import { TParticipant } from "@/common/types";
 
 @Injectable()
 export class ParticipantsService {

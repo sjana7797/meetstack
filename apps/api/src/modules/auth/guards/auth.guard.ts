@@ -1,4 +1,3 @@
-import { verifyAuthToken } from "@repo/auth-verify";
 import {
   type CanActivate,
   type ExecutionContext,
@@ -6,9 +5,10 @@ import {
   UnauthorizedException,
 } from "@nestjs/common";
 import { Reflector } from "@nestjs/core";
+import { verifyAuthToken } from "@repo/auth-verify";
 import type { Request } from "express";
 
-import { IS_PUBLIC_KEY } from "../decorators/public.decorator";
+import { IS_PUBLIC_KEY } from "@/modules/auth/decorators/public.decorator";
 
 @Injectable()
 export class AuthGuard implements CanActivate {

@@ -1,6 +1,6 @@
-import { TEnv } from "@repo/config/env";
 import { Injectable, Logger } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
+import { TEnv } from "@repo/config/env";
 import { Router, WebRtcTransport } from "mediasoup/types";
 
 @Injectable()

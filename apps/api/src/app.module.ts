@@ -1,7 +1,7 @@
-import { validateEnv } from "@repo/config/env";
-import { pinoConfig } from "@repo/config/pino";
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
+import { validateEnv } from "@repo/config/env";
+import { pinoConfig } from "@repo/config/pino";
 import { LoggerModule } from "pino-nestjs";
 
 import { ApiModule } from "./modules/api.module";

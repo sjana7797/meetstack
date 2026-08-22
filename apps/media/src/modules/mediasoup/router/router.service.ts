@@ -1,6 +1,7 @@
-import { WorkerService } from "@/modules/mediasoup/worker/worker.service";
 import { Injectable } from "@nestjs/common";
 import { Router } from "mediasoup/types";
+
+import { WorkerService } from "@/modules/mediasoup/worker/worker.service";
 
 @Injectable()
 export class RouterService {

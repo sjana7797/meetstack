@@ -91,8 +91,10 @@ export default tseslint.config(
           format: ["PascalCase"],
         },
         {
+          // PascalCase is included for Nest-style decorator factories
+          // (e.g. `export const CurrentUser = createParamDecorator(...)`).
           selector: "variable",
-          format: ["camelCase", "UPPER_CASE"],
+          format: ["camelCase", "UPPER_CASE", "PascalCase"],
         },
         {
           selector: "function",
@@ -186,6 +188,14 @@ export default tseslint.config(
       "sonarjs/no-nested-switch": "warn",
       "sonarjs/no-collapsible-if": "warn",
       "sonarjs/max-switch-cases": ["warn", 10],
+    },
+  },
+  {
+    // Ambient declaration files augment external types (e.g. Express,
+    // Node) whose names can't be renamed to fit our I-prefix convention.
+    files: ["**/*.d.ts"],
+    rules: {
+      "@typescript-eslint/naming-convention": "off",
     },
   },
 );

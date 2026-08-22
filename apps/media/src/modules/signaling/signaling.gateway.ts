@@ -1,9 +1,3 @@
-import { type IAuthTokenPayload, verifyAuthToken } from "@repo/auth-verify";
-import { ConsumerService } from "@/modules/mediasoup/consumer/consumer.service";
-import { ParticipantsService } from "@/modules/mediasoup/participants/particcipants.service";
-import { ProducerService } from "@/modules/mediasoup/producer/producer.service";
-import { RoomsService } from "@/modules/mediasoup/rooms/rooms.service";
-import { TransportService } from "@/modules/mediasoup/transport/transport.service";
 import {
   ConnectedSocket,
   MessageBody,
@@ -13,6 +7,7 @@ import {
   WebSocketGateway,
   WsResponse,
 } from "@nestjs/websockets";
+import { type IAuthTokenPayload, verifyAuthToken } from "@repo/auth-verify";
 import type { IncomingMessage } from "http";
 import type {
   DtlsParameters,
@@ -23,6 +18,12 @@ import type {
 } from "mediasoup/types";
 import { v7 as uuidv7 } from "uuid";
 import type { WebSocket } from "ws";
+
+import { ConsumerService } from "@/modules/mediasoup/consumer/consumer.service";
+import { ParticipantsService } from "@/modules/mediasoup/participants/particcipants.service";
+import { ProducerService } from "@/modules/mediasoup/producer/producer.service";
+import { RoomsService } from "@/modules/mediasoup/rooms/rooms.service";
+import { TransportService } from "@/modules/mediasoup/transport/transport.service";
 
 interface IJoinRoomData {
   roomId: string;
@@ -509,6 +510,9 @@ export class SignalingGateway
   async leaveRoom(
     @ConnectedSocket() socket: WebSocket,
     @MessageBody() data: { requestId?: string },
+
+    // async, like the sibling handlers, so its design:returntype metadata
+    // stays `Promise` rather than the erased `WsResponse` interface.
   ): Promise<WsResponse<unknown>> {
     this.cleanupParticipant(socket);
 

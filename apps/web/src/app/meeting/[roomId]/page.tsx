@@ -127,7 +127,9 @@ function VideoTile({
   return (
     <div
       className={`group relative flex aspect-video w-full animate-[tile-in_0.35s_ease-out] items-center justify-center overflow-hidden rounded-2xl bg-[#3c4043] shadow-[0_1px_2px_rgba(0,0,0,0.4)] ring-1 ring-white/5 transition-shadow duration-300 ${
-        speaking ? "ring-2 ring-[#8ab4f8] ring-offset-2 ring-offset-[#0e0e10]" : ""
+        speaking
+          ? "ring-2 ring-[#8ab4f8] ring-offset-2 ring-offset-[#0e0e10]"
+          : ""
       }`}
     >
       {!muted && <audio ref={audioRef} autoPlay />}
@@ -332,9 +334,8 @@ export default function MeetingPage() {
         }
 
         const onRemoteTrack = (event: Event) => {
-          const { participantId, userId, kind, track } = (
-            event as CustomEvent
-          ).detail;
+          const { participantId, userId, kind, track } = (event as CustomEvent)
+            .detail;
 
           upsertParticipant(participantId, userId, {
             [kind === "video" ? "videoTrack" : "audioTrack"]: track,
@@ -465,9 +466,7 @@ export default function MeetingPage() {
             {connected ? (
               <>
                 <span className="inline-flex h-1.5 w-1.5 rounded-full bg-[#81c995]" />
-                <span className="tabular-nums">
-                  {formatDuration(elapsed)}
-                </span>
+                <span className="tabular-nums">{formatDuration(elapsed)}</span>
               </>
             ) : (
               "Connecting…"
@@ -510,7 +509,9 @@ export default function MeetingPage() {
                   ? localStreamRef.current?.getVideoTracks()[0]
                   : undefined
               }
-              audioTrack={micOn ? localStreamRef.current?.getAudioTracks()[0] : undefined}
+              audioTrack={
+                micOn ? localStreamRef.current?.getAudioTracks()[0] : undefined
+              }
               muted
               cameraOff={!cameraOn}
               micOff={!micOn}
@@ -530,7 +531,8 @@ export default function MeetingPage() {
 
           {connected && remoteList.length === 0 && (
             <p className="mt-6 text-center text-sm text-[#9aa0a6]">
-              You&rsquo;re the only one here — copy the link above to bring others in.
+              You&rsquo;re the only one here — copy the link above to bring
+              others in.
             </p>
           )}
         </div>

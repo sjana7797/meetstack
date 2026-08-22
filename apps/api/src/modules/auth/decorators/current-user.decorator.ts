@@ -1,5 +1,5 @@
-import type { IAuthTokenPayload } from "@repo/auth-verify";
 import { createParamDecorator, type ExecutionContext } from "@nestjs/common";
+import type { IAuthTokenPayload } from "@repo/auth-verify";
 import type { Request } from "express";
 
 export const CurrentUser = createParamDecorator(

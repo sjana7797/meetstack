@@ -1,5 +1,5 @@
-import { DatabaseModule } from "@repo/db/nestjs";
 import { Module } from "@nestjs/common";
+import { DatabaseModule } from "@repo/db/nestjs";
 
 import { AuthModule } from "./auth/auth.module";
 import { HealthModule } from "./health";

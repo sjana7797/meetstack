@@ -1,8 +1,9 @@
 import { NestFactory } from "@nestjs/core";
+import type { MicroserviceOptions } from "@nestjs/microservices";
+import { Transport } from "@nestjs/microservices";
+import { Logger } from "@repo/config/pino";
 
 import { UserModule } from "./user.module";
-import { MicroserviceOptions, Transport } from "@nestjs/microservices";
-import { Logger } from "@repo/config/pino";
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
@@ -16,7 +17,6 @@ async function bootstrap() {
       },
     },
   );
-
   // logger
   const logger = app.get(Logger);
 
@@ -24,4 +24,5 @@ async function bootstrap() {
 
   logger.log(`User service started on port ${5003}`);
 }
+
 bootstrap();

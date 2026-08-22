@@ -1,6 +1,6 @@
-import { DatabaseService } from "@repo/db/nestjs";
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { TUser } from "@repo/db";
+import { DatabaseService } from "@repo/db/nestjs";
 
 @Injectable()
 export class UserService {

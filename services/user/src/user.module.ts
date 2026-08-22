@@ -1,11 +1,11 @@
-import { DatabaseModule } from "@repo/db/nestjs";
 import { Module } from "@nestjs/common";
+import { ConfigModule } from "@nestjs/config";
+import { validateEnv } from "@repo/config/env";
+import { LoggerModule, pinoConfig } from "@repo/config/pino";
+import { DatabaseModule } from "@repo/db/nestjs";
 
 import { UserController } from "./user.controller";
 import { UserService } from "./user.service";
-import { LoggerModule, pinoConfig } from "@repo/config/pino";
-import { validateEnv } from "@repo/config/env";
-import { ConfigModule } from "@nestjs/config";
 
 @Module({
   imports: [

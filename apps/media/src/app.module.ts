@@ -1,6 +1,6 @@
-import { validateEnv } from "@repo/config/env";
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
+import { validateEnv } from "@repo/config/env";
 
 import { MediasoupModule } from "./modules/mediasoup/mediasoup.module";
 import { SignalingModule } from "./modules/signaling/signaling.module";

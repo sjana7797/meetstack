@@ -1,6 +1,10 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@source "../../../apps/**/*.{ts,tsx}";
+@source "../../../components/**/*.{ts,tsx}";
+@source "../**/*.{ts,tsx}";
+
 @custom-variant dark (&:is(.dark *));
 
 :root {
@@ -77,10 +81,10 @@
 
 @layer base {
   * {
-    @repoly border-border outline-ring/50;
+    @apply border-border outline-ring/50;
   }
 
   body {
-    @repoly bg-background text-foreground;
+    @apply bg-background text-foreground;
   }
 }

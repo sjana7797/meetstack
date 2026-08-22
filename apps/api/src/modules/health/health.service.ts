@@ -16,8 +16,8 @@ export class HealthService {
 
   healthStatus() {
     return this.health.check([
-      //   () => this.infrastructure.isDatabaseHealthy("database"),
-      //   () => this.infrastructure.isRedisHealthy("redis"),
+      () => this.infrastructure.isDatabaseHealthy("database"),
+      // () => this.infrastructure.isRedisHealthy("redis"),
       () => this.memory.checkHeap("memory_heap", HEAP_LIMIT_BYTES),
       () => this.memory.checkRSS("memory_rss", RSS_LIMIT_BYTES),
     ]);

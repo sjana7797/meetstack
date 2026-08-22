@@ -3,7 +3,7 @@ import { ConfigService } from "@nestjs/config";
 import { NestFactory } from "@nestjs/core";
 import { WsAdapter } from "@nestjs/platform-ws";
 
-import { MediaModule } from "./media.module";
+import { MediaModule } from "./app.module";
 
 async function bootstrap() {
   const app = await NestFactory.create(MediaModule);

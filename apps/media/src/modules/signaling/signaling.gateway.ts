@@ -1,9 +1,9 @@
 import { type IAuthTokenPayload, verifyAuthToken } from "@repo/auth-verify";
-import { ConsumerService } from "@media/modules/mediasoup/consumer/consumer.service";
-import { ParticipantsService } from "@media/modules/mediasoup/participants/particcipants.service";
-import { ProducerService } from "@media/modules/mediasoup/producer/producer.service";
-import { RoomsService } from "@media/modules/mediasoup/rooms/rooms.service";
-import { TransportService } from "@media/modules/mediasoup/transport/transport.service";
+import { ConsumerService } from "@/modules/mediasoup/consumer/consumer.service";
+import { ParticipantsService } from "@/modules/mediasoup/participants/particcipants.service";
+import { ProducerService } from "@/modules/mediasoup/producer/producer.service";
+import { RoomsService } from "@/modules/mediasoup/rooms/rooms.service";
+import { TransportService } from "@/modules/mediasoup/transport/transport.service";
 import {
   ConnectedSocket,
   MessageBody,

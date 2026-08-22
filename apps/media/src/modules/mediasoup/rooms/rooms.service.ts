@@ -1,5 +1,5 @@
-import { TMediaRoom } from "@media/common/types";
-import { RouterService } from "@media/modules/mediasoup/router/router.service";
+import { TMediaRoom } from "@/common/types";
+import { RouterService } from "@/modules/mediasoup/router/router.service";
 import { Injectable, Logger } from "@nestjs/common";
 
 @Injectable()
